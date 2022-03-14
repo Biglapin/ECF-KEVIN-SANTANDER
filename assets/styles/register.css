@@ -1,0 +1,20 @@
+body {
+  background-color: rgb(140, 179, 105);
+}
+
+.card-registration .select-input.form-control[readonly]:not([disabled]) {
+  font-size: 1rem;
+  line-height: 2.15;
+  padding-left: .75em;
+  padding-right: .75em;
+}
+.card-registration .select-arrow {
+  top: 13px;
+}
+
+.btn-submit-login {
+  background-color: rgb(244, 226, 133);
+}
+.btn-reset-login {
+  background-color: rgb(188, 75, 81);
+}
