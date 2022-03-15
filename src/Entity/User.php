@@ -46,6 +46,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->reservations = new ArrayCollection();
     }
+    
+    public function __toString(): string
+    {
+        return $this->firstName.' '.$this->lastName;
+    }
 
     public function getId(): ?int
     {

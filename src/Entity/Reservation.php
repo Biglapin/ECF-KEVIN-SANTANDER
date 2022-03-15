@@ -19,7 +19,7 @@ class Reservation
     #[ORM\Column(type: 'date')]
     private $checkout;
 
-    #[ORM\Column(type: 'datetime_immutable')]
+    #[ORM\Column(type: 'datetime')]
     private $createdAt;
 
     #[ORM\ManyToOne(targetEntity: Room::class, inversedBy: 'reservations')]
