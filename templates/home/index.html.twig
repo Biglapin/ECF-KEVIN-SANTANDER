@@ -1,7 +1,105 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Welcome - Hypnos{% endblock %}
 
 {% block body %}
-  <h1>Welcome to our hotel </h1>
+
+{# Navbar section  #}
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="/images/logo.png" alt="logo Hypnos" width="120" height="90">
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTarget"
+      aria-controls="navbarTarget" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTarget">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href="/">Home</a>
+        <a class="nav-link" href="#">Hotels</a>
+        <a class="nav-link" href="#">Contact</a>
+      </div>
+    </div>
+    <div class="navbar-nav">
+      <div class="d-flex justify-content-end">
+        <a class="nav-link" href="/login"> Login</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+{# Top section with photo  #}
+
+  <section>
+          <div class="container-fluid container-background">
+          <img class='img-background' src="/images/background.jpg" alt="">
+            <div class="text-centered">Welcome to Hypnos</div>
+          </div>
+  </section>
+
+{# middle section with services #}
+
+  <section class="middle-section">
+    <div class="container">
+      <div class="row mb30">
+        <div class="col-md-8 col-md-offset-2  text-center">
+          <h2>Explore our Services</h2>
+          <p class="lead">Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+          <p><img src="img/curve.svg" class="svg" alt=""></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="service left-icon ">
+            <div class="icon">
+              <img src="images/icons/001-building.svg" class="svg-home" alt="">
+            </div>
+            <div class="text">
+              <h3>7 Hotels in a World</h3>
+              <p>Stay in one of our 7 hotels in France and Europe.</p>
+            </div>  
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="service left-icon">
+            <div class="icon">
+              <img src="images/icons/003-restaurant.svg" class="svg-home" alt="">
+            </div>
+            <div class="text">
+              <h3>Food &amp; Drinks</h3>
+              <p>The quality of our products are essential, we buy local and fresh</p>
+            </div>  
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="service left-icon">
+            <div class="icon">
+              <img src="images/icons/003-spa.svg" class="svg-home" alt="">
+            </div>
+            <div class="text">
+              <h3>SPA</h3>
+              <p>Do you like luxury? In each of our hotels you will also find a SPA.</p>
+            </div>  
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {# Section for redirect hotel #}
+<section class="d-flex justify-content-center">
+  <div class="row d-flex justify-content-center">
+    <div class="container">
+      <div class="col-sm-12 col-md-12">
+        <button class="btn button-choose">CHOOSE YOUR HOTEL </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
 {% endblock %}
