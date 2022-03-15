@@ -67,4 +67,10 @@ class UserCrudController extends AbstractCrudController
         $entityManager->flush();
     }
 
+    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        $entityInstance->setPassword($this->passwordHasher->hashPassword($entityInstance, $entityInstance->getPassword()));
+        $entityManager->flush();
+    }
+
 }
