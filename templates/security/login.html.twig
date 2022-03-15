@@ -2,9 +2,9 @@
 
 {% block title %}Log in - Hypnos{% endblock %}
 
-{% block body %}
+{% block content %}
 <form method="post">
-<section class="vh-100"">
+<section class="vh-100">
     {% if error %}
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
@@ -14,6 +14,8 @@
             You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
         </div>
     {% endif %}
+
+    
   <div class="container py-5 h-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col col-xl-10">
