@@ -3,12 +3,15 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Room;
+use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class RoomCrudController extends AbstractCrudController
 {
@@ -22,9 +25,12 @@ class RoomCrudController extends AbstractCrudController
     {
         return [
             TextField::new('title'),
+            TextField::new('imageFile')->setFormType(VichImageType::class)->hideOnIndex(),
+            ImageField::new('image')->setBasePath('/images/rooms/')->onlyOnIndex(),
             TextEditorField::new('description'),
             MoneyField::new('price')->setCurrency('EUR'),
-            BooleanField::new('isAvailable')
+            BooleanField::new('isAvailable'),
+            
         ];
     }
     
