@@ -10,6 +10,9 @@ import './styles/app.css';
 import "./styles/register.css";
 import "./styles/login.css";
 
+// You can specify which plugins you need
+import { Tooltip, Toast, Popover } from 'bootstrap';
+
 // start the Stimulus application
 import './bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';

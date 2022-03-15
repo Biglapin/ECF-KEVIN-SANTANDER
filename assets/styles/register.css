@@ -1,6 +1,6 @@
-body {
+/* body {
   background-color: rgb(140, 179, 105);
-}
+} */
 
 .card-registration .select-input.form-control[readonly]:not([disabled]) {
   font-size: 1rem;
