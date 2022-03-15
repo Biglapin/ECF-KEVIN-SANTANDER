@@ -14,3 +14,8 @@ npm run build
 
 
 symfony console make:controller Home
+
+En local, décommenter la bdd 
+DATABASE_URL="mysql://root:@127.0.0.1:3306/ecfhotel?serverVersion=5.7&charset=utf8mb4"
+lancer la commande : 
+php bin/console doctrine:database:create
