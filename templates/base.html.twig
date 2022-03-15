@@ -30,12 +30,12 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarTarget">
             <div class="navbar-nav">
-                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                <a class="nav-link" href="/">Home</a>
                 <a class="nav-link" href="#">Hotels</a>
                 <a class="nav-link" href="#">Contact</a>
             </div>
             </div>
-            <div class="navbar-nav">
+            <div class="navbar-nav navbar-right">
             {% if app.user %}
                 <div class="d-flex justify-content-end">
                     <a class="nav-link" href="{{ path('app_logout') }}"> Logout</a>
