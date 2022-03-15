@@ -20,13 +20,13 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-
-
         //return parent::index();
         $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-        // Option 1. Make your dashboard redirect to the same page for all users
-        return $this->redirect($adminUrlGenerator->setController(HotelCrudController::class)->generateUrl());
-
+        if ($this->isGranted('ROLE_SUPER_ADMIN')) {
+            return $this->redirect($adminUrlGenerator->setController(HotelCrudController::class)->generateUrl());
+        } else {
+            return $this->redirect($adminUrlGenerator->setController(RoomCrudController::class)->generateUrl());
+        }
         // Option 2. You can make your dashboard redirect to different pages depending on the user
         //
         // if ('jane' === $this->getUser()->getUsername()) {
