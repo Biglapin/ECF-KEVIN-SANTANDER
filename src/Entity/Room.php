@@ -39,9 +39,17 @@ class Room
     #[ORM\OneToMany(mappedBy: 'roomId', targetEntity: Reservation::class)]
     private $reservations;
 
+    #[ORM\ManyToOne(targetEntity: Hotel::class, inversedBy: 'rooms')]
+    private $hotelId;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
+    }
+
+    public function __toString(): string
+    {
+        return $this->title; 
     }
 
     public function getId(): ?int
@@ -152,6 +160,18 @@ class Room
                 $reservation->setRoomId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getHotelId(): ?Hotel
+    {
+        return $this->hotelId;
+    }
+
+    public function setHotelId(?Hotel $hotelId): self
+    {
+        $this->hotelId = $hotelId;
 
         return $this;
     }

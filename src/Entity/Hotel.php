@@ -33,9 +33,13 @@ class Hotel
     #[ORM\OneToMany(mappedBy: 'hotelId', targetEntity: User::class)]
     private $users;
 
+    #[ORM\OneToMany(mappedBy: 'hotelId', targetEntity: Room::class)]
+    private $rooms;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->rooms = new ArrayCollection();
     }
     public function __toString(): string
     {
@@ -130,6 +134,36 @@ class Hotel
             // set the owning side to null (unless already changed)
             if ($user->getHotelId() === $this) {
                 $user->setHotelId(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Room>
+     */
+    public function getRooms(): Collection
+    {
+        return $this->rooms;
+    }
+
+    public function addRoom(Room $room): self
+    {
+        if (!$this->rooms->contains($room)) {
+            $this->rooms[] = $room;
+            $room->setHotelId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRoom(Room $room): self
+    {
+        if ($this->rooms->removeElement($room)) {
+            // set the owning side to null (unless already changed)
+            if ($room->getHotelId() === $this) {
+                $room->setHotelId(null);
             }
         }
 

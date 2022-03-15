@@ -24,12 +24,13 @@ class RoomCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            TextField::new('title'),
+            TextField::new('title', 'Title'),
             TextField::new('imageFile')->setFormType(VichImageType::class)->hideOnIndex(),
             ImageField::new('image')->setBasePath('/images/rooms/')->onlyOnIndex(),
-            TextEditorField::new('description'),
+            TextEditorField::new('description', 'Description'),
+            AssociationField::new('hotelId', 'Hotel'),
             MoneyField::new('price')->setCurrency('EUR'),
-            BooleanField::new('isAvailable'),
+            BooleanField::new('isAvailable', 'Available'),
             
         ];
     }
