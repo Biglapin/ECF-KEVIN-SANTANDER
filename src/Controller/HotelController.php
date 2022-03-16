@@ -14,13 +14,27 @@ class HotelController extends AbstractController
     {}
 
 
-    #[Route('/hotel', name: 'app_hotel')]
+    #[Route('/hotel', name: 'hotels')]
     public function index(): Response
     {
         $hotels = $this->entityManager->getRepository(Hotel::class)->findAll();
 
         return $this->render('hotel/index.html.twig', [
             'hotels' => $hotels
+        ]);
+    }
+
+    #[Route('/hotel/{slug}', name: 'uniq_hotel')]
+    public function show($slug): Response
+    {
+        $hotel = $this->entityManager->getRepository(Hotel::class)->findOneBySlug($slug);
+
+        if(!$hotel) {
+            return $this->redirectToRoute('hotels');
+        }
+
+        return $this->render('hotel/showhotel.html.twig', [
+            'hotel' => $hotel
         ]);
     }
 }

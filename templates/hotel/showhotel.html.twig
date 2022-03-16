@@ -1,13 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends "base.html.twig" %}
 
-{% block title %}Our Hotels - Hypnos{% endblock %}
+{% block title %}Hotel {{ hotel.hotelName }}{% endblock %}
 
-{% block content %}
+
+{% block content %} 
 <header>
     <div class="p-4 p-md-5 mb-4 text-white rounded banner-image"
         style="background-image: url('{{ asset('images/background-hotel.jpg') }}');">
         <div class="col-md-6 px-0">
-            <h1 class="display-4 fst-italic text-white">Simply choose one of our hotels</h1>
+            <h1 class="display-4 fst-italic text-white">{{ hotel.hotelName }}</h1>
             <p class="lead my-3">Our hotels are among the best in the world, just choose one and discover the pleasure
                 of luxury</p>
         </div>
@@ -16,19 +17,19 @@
 <section>
     <div class=" py-5 bg-light">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for hotel in hotels %}
+        {% for OneHotel in hotel %}
             <div class="col  d-flex justify-content-center">
                 <div class="card" style="width: 18rem;">
                     <img  src="{{ vich_uploader_asset(hotel, 'imageFile') }}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">{{ hotel.hotelName }}</h5>
-                        <p class="card-text">{{ hotel.description }}</p>
-                            <a href="{# {{ path('uniq_hotel', { 'slug': hotel.slug })}} #}" class="btn btn-lg btn-success">Go somewhere</a>
+                        <h5 class="card-title">{{ OneHotel.hotelName }}</h5>
+                        <p class="card-text">{{ OneHotel.description }}</p>
+                        <a href="#" class="btn btn-lg btn-success">Go somewhere</a>
                     </div>
                 </div>
             </div>
         {% endfor %}
         </div>
-    </div>  
+    </div>
 </section>
 {% endblock %}

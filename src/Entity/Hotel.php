@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: HotelRepository::class)]
@@ -41,6 +42,10 @@ class Hotel
 
     #[ORM\Column(type: 'string', length: 255)]
     private $Image;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Gedmo\Slug(fields: ['hotelName', 'hotelName'])]
+    private string $slug = '';
 
     #[Vich\UploadableField(mapping: 'hotels_images' ,fileNameProperty: 'image')]
     private ?File $imageFile = null;
@@ -206,5 +211,17 @@ class Hotel
     public function getImageFile()
     {
         return $this->imageFile;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    public function setSlug($slug): string
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }
