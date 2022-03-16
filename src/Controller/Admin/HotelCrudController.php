@@ -6,6 +6,7 @@ use App\Entity\Hotel;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -31,6 +32,7 @@ class HotelCrudController extends AbstractCrudController
             TextField::new('city'),
             UrlField::new('link'),
             TextareaField::new('description'),
+            SlugField::new('slug')->setTargetFieldName('hotelName')
         ];
     }
   public function configureActions(Actions $actions): Actions

@@ -136,3 +136,9 @@ h1, h2, h3, h4 {
     min-height: 179px;
     max-height: 179px;
 }
+
+.btn.btn-primary {
+    border: 2px solid #903479;
+    background: #903479;
+    color: #fff;
+}
