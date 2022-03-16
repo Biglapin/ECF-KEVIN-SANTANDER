@@ -121,3 +121,18 @@ h1, h2, h3, h4 {
     margin-top: 4rem;
     padding-top: 1rem;
 }
+
+/* --------------------------------- HOTEL PAGE ----------------------------- */
+
+.banner-image {
+    background-size: 100% auto;
+    background-position: center;
+}
+
+.card-img-top {
+    max-height: 290px;
+}
+.card-text {
+    min-height: 179px;
+    max-height: 179px;
+}
