@@ -142,3 +142,14 @@ h1, h2, h3, h4 {
     background: #903479;
     color: #fff;
 }
+
+
+/* -------------------------------- CONTACT FORM ------------------------------ */
+.section-icon-contact {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.section-icon-contact li img {
+    margin: 0rem 1rem 0.4rem 0rem;
+}
