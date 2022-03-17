@@ -24,8 +24,8 @@ class HotelController extends AbstractController
         ]);
     }
 
-    #[Route('/hotel/{slug}', name: 'uniq_hotel')]
-    public function show($slug): Response
+    #[Route('/hotel/{slug}', name: 'show_hotel')]
+    public function show(Hotel $slug): Response
     {
         $hotel = $this->entityManager->getRepository(Hotel::class)->findOneBySlug($slug);
 

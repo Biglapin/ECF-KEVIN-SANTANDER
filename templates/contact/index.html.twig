@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Contact-us  Hypnos{% endblock %}
+
+{% block content %}
+  <section>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8">
+          <h2 class="mt0">Contact Form</h2>
+          {{ form_start(form) }}
+          <form action="#" method="post">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="form-group">
+                  {{ form_row(form.firstname) }}
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  {{ form_row(form.lastname) }}
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+            {{ form_row(form.email) }}
+            </div>
+            <div class="form-group">
+            {{ form_row(form.subject) }}
+            </div>
+            <div class="form-group mb-5">
+            {{ form_row(form.message) }}
+{#               <label for="message">Message</label>
+              <textarea cols="30" rows="10" class="form-control" id="message" name="message"></textarea> #}
+            </div>
+            <div class="form-group text-sm-center text-center">
+              <input type="submit" class="btn button-choose" id="submit" name="submit" value="Send Message">
+            </div>
+          </form>
+        </div>
+        <div class="col-md-4">
+          <h2 class="mt0">Get In Touch</h2>
+          <ul class="section-icon-contact">
+            <li><img src="/images/icons/phone-solid.svg" class="social-icon" alt="Address icon hotel"><span>198 West 21th Street, Suite 721 New York NY 10016</span></li>
+            <li><img src="/images/icons/envelope-solid.svg" class="social-icon" alt="Email icon hotel"><span>info@hypnos.com</span></li>
+            <li><img src="/images/icons/phone-solid.svg" class="social-icon" alt="Number icon hotel"><span>+33 4 74 78 90 12</span></li>
+          </ul>
+ 
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+{% endblock %}
