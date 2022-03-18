@@ -42,9 +42,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'customerId', targetEntity: Reservation::class)]
     private $reservations;
 
+    #[ORM\ManyToMany(targetEntity: Room::class, inversedBy: 'users')]
+    private $managerId;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
+        $this->managerId = new ArrayCollection();
     }
     
     public function __toString(): string
@@ -215,6 +219,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $reservation->setCustomerId(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Room>
+     */
+    public function getManagerId(): Collection
+    {
+        return $this->managerId;
+    }
+
+    public function addManagerId(Room $managerId): self
+    {
+        if (!$this->managerId->contains($managerId)) {
+            $this->managerId[] = $managerId;
+        }
+
+        return $this;
+    }
+
+    public function removeManagerId(Room $managerId): self
+    {
+        $this->managerId->removeElement($managerId);
 
         return $this;
     }

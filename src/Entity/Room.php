@@ -42,9 +42,13 @@ class Room
     #[ORM\ManyToOne(targetEntity: Hotel::class, inversedBy: 'rooms')]
     private $hotelId;
 
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'managerId')]
+    private $users;
+
     public function __construct()
     {
         $this->reservations = new ArrayCollection();
+        $this->users = new ArrayCollection();
     }
 
     public function __toString(): string
@@ -172,6 +176,33 @@ class Room
     public function setHotelId(?Hotel $hotelId): self
     {
         $this->hotelId = $hotelId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
+    {
+        return $this->users;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->users->contains($user)) {
+            $this->users[] = $user;
+            $user->addManagerId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeManagerId($this);
+        }
 
         return $this;
     }

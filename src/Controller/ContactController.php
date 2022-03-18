@@ -27,7 +27,7 @@ class ContactController extends AbstractController
             //dd($contactFormData);
             $message = (new TemplatedEmail())
                 ->from($contactFormData['email'])
-                ->to('noreply@hypsnoshotel.com')
+                ->to('kevin.santander@protonmail.ch')
                 ->subject($contactFormData['subject'])
                 ->htmlTemplate('email/contact.html.twig')
                 ->context([
@@ -41,16 +41,11 @@ class ContactController extends AbstractController
                     $contactFormData['message'],
                     'text/plain'); */
 
-
-
             $mailer->send($message);
-
-
-
 
             $this->addFlash('success', 'Your message has been sent');
 
-            //return $this->redirectToRoute('contact');
+            return $this->redirectToRoute('app_contact');
         }
 
         return $this->render('contact/index.html.twig', [

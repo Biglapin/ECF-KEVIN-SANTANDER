@@ -6,6 +6,7 @@ use App\Entity\Hotel;
 use App\Entity\Reservation;
 use App\Entity\Room;
 use App\Entity\User;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -51,7 +52,7 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section("Administrator Section")
             ->setPermission('ROLE_SUPER_ADMIN');
         yield MenuItem::linkToCrud('Manager', 'fas fa-user', User::class)
-            ->setPermission('ROLE_SUPER_ADMIN');
+            /* ->setPermission('ROLE_SUPER_ADMIN') */;
         yield MenuItem::linkToCrud('Hotel', 'fas fa-hotel', Hotel::class)
             ->setPermission('ROLE_SUPER_ADMIN');
         yield MenuItem::section("Manager Section");
