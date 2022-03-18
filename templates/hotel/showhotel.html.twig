@@ -4,7 +4,7 @@
 
 {% block content %} 
 <header>
-    <div class="p-4 p-md-5 mb-4 text-white rounded banner-image"
+    <div class="p-4 p-md-5 mb-4 text-white  img-fluid rounded banner-image"
         style="background-image: url('{{ asset('images/background-hotel.jpg') }}');">
         <div class="col-md-6 px-0">
             <h1 class="display-4 fst-italic text-white">{{ hotel.hotelName }}</h1>
@@ -14,18 +14,23 @@
     </div>
 </header>
 <section>
-    <div class=" py-5 bg-light">
+    <div class=" py-5">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {% for room in rooms %}
             <div class="col  d-flex justify-content-center">
-                <div class="card" style="width: 18rem;">
-                    <img  src="{{ vich_uploader_asset(room, 'imageFile') }}" class="card-img-top" alt="{{room.title}}">
+                <div class="card" style="width: 25rem;">
+                    <img  src="{{ vich_uploader_asset(room, 'imageFile') }}" class="card-img-top img-thumbnail" alt="{{room.title}}">
                     <div class="card-body">
                         <h5 class="card-title">{{ room.title }}</h5>
                         <p class="card-text">{{ room.description }}</p>
-                        <p></p>
-                        <a href="{{ path('show_room', { 'slug': room.slug })}}" class="btn btn-lg btn-success">Book Now</a>
-                        <a href="#" class="btn btn-lg btn-success">More image</a>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item text-center price">Price : {{ (room.price / 100) |number_format (2, ',', '.') }} €</li>
+                        </ul>
+                        <div class="card-footer">
+                            <a href="{{ path('show_room', { 'slug': room.slug })}}"><button class="btn link-room button-choose mb-3">Book Now </button></a>
+                            <a href="{{hotel.link}}"><button class="btn link-room button-choose btn-booking">Booking.com </button></a>
+                            
+                        </div>
                     </div>
                 </div>
             </div>

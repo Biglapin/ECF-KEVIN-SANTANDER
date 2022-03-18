@@ -14,16 +14,18 @@
     </div>
 </header>
 <section>
-    <div class=" py-5 bg-light">
+    <div class=" py-5">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         {% for hotel in hotels %}
             <div class="col  d-flex justify-content-center">
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="width: 25rem;">
                     <img  src="{{ vich_uploader_asset(hotel, 'imageFile') }}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{ hotel.hotelName }}</h5>
                         <p class="card-text">{{ hotel.description }}</p>
-                            <a href=" {{ path('show_hotel', { 'slug': hotel.slug })}} " class="btn button-choose">Check this hotel</a>
+                        <div class="card-footer text-center">
+                                <a href=" {{ path('show_hotel', { 'slug': hotel.slug })}} "><button class="btn button-choose">Check this hotel</button></a>
+                        </div>
                     </div>
                 </div>
             </div>

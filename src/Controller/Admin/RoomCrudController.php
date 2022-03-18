@@ -18,6 +18,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
@@ -49,7 +50,8 @@ class RoomCrudController extends AbstractCrudController
             MoneyField::new('price')->setCurrency('EUR'),
             BooleanField::new('isAvailable', 'Available')
                 ->renderAsSwitch(false), 
-           SlugField::new('slug')->setTargetFieldName('title')
+            SlugField::new('slug')->setTargetFieldName('title'),
+            UrlField::new('link')
         ];
     }
     

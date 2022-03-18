@@ -44,6 +44,9 @@ class Room
     #[Gedmo\Slug(fields: ['title', 'title'])]
     private string $slug = '';
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $link;
+
     #[ORM\ManyToOne(targetEntity: Hotel::class, inversedBy: 'rooms')]
     private $hotelId;
 
@@ -181,6 +184,19 @@ class Room
     public function setSlug($slug): string
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+
+    public function getLink(): ?string
+    {
+        return $this->link;
+    }
+
+    public function setLink(string $link): self
+    {
+        $this->link = $link;
 
         return $this;
     }
