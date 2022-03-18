@@ -14,6 +14,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -23,11 +25,11 @@ class RoomCrudController extends AbstractCrudController
 {
 
 
-    public function configureCrud(Crud $crud): Crud
+/*     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
             ->setEntityPermission('HOTEL_MANAGER_LONDON');
-    }
+    } */
     
 
     public static function getEntityFqcn(): string
@@ -42,11 +44,12 @@ class RoomCrudController extends AbstractCrudController
             TextField::new('title', 'Title'),
             TextField::new('imageFile')->setFormType(VichImageType::class)->hideOnIndex(),
             ImageField::new('image')->setBasePath('/images/rooms/')->onlyOnIndex(),
-            TextEditorField::new('description', 'Description'),
+            TextareaField::new('description', 'Description'),
             AssociationField::new('hotelId', 'Hotel'),
             MoneyField::new('price')->setCurrency('EUR'),
             BooleanField::new('isAvailable', 'Available')
-                ->renderAsSwitch(false),  
+                ->renderAsSwitch(false), 
+           SlugField::new('slug')->setTargetFieldName('title')
         ];
     }
     

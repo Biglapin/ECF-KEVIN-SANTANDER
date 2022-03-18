@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RoomRepository::class)]
@@ -38,6 +39,10 @@ class Room
 
     #[ORM\OneToMany(mappedBy: 'roomId', targetEntity: Reservation::class)]
     private $reservations;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    #[Gedmo\Slug(fields: ['title', 'title'])]
+    private string $slug = '';
 
     #[ORM\ManyToOne(targetEntity: Hotel::class, inversedBy: 'rooms')]
     private $hotelId;
@@ -164,6 +169,18 @@ class Room
                 $reservation->setRoomId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    public function setSlug($slug): string
+    {
+        $this->slug = $slug;
 
         return $this;
     }

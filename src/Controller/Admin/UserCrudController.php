@@ -20,11 +20,11 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserCrudController extends AbstractCrudController
 {
 
-    public function configureCrud(Crud $crud): Crud
+/*     public function configureCrud(Crud $crud): Crud
     {
         return parent::configureCrud($crud)
             ->setEntityPermission('HOTEL_MANAGER_LONDON');
-    }
+    } */
 
     public function __construct(private UserPasswordHasherInterface $passwordHasher)
     {}

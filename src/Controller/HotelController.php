@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Hotel;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,12 +28,19 @@ class HotelController extends AbstractController
     {
         $hotel = $this->entityManager->getRepository(Hotel::class)->findOneBySlug($slug);
         
+        //if slug is not found redirect on the hotels homepage
         if(!$hotel) {
             return $this->redirectToRoute('hotels');
-        }
-
+        } 
+        
+        //get all rooms and display them in the twig template with a foreach. 
+        $rooms = $hotel->getRooms();
         return $this->render('hotel/showhotel.html.twig', [
-            'hotel' => $hotel
+            'hotel' => $hotel,
+            'rooms' => $rooms
         ]);
     }
+
+    
+
 }

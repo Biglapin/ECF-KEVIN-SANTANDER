@@ -1,13 +1,18 @@
 {% extends "base.html.twig" %}
 
-{% block title %}Hotel {{ hotel.hotelName }}{% endblock %}
+{% block title %}Room {{ room.title }}{% endblock %}
+
 
 {% block content %} 
+
+<pre>
+  {{ dump('ok') }}
+</pre>
 <header>
     <div class="p-4 p-md-5 mb-4 text-white rounded banner-image"
         style="background-image: url('{{ asset('images/background-hotel.jpg') }}');">
         <div class="col-md-6 px-0">
-            <h1 class="display-4 fst-italic text-white">{{ hotel.hotelName }}</h1>
+            <h1 class="display-4 fst-italic text-white">{{ room.title }}</h1>
             <p class="lead my-3">Our hotels are among the best in the world, just choose one and discover the pleasure
                 of luxury</p>
         </div>
@@ -16,16 +21,14 @@
 <section>
     <div class=" py-5 bg-light">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for room in rooms %}
+        {% for OneRoom in room %}
             <div class="col  d-flex justify-content-center">
                 <div class="card" style="width: 18rem;">
-                    <img  src="{{ vich_uploader_asset(room, 'imageFile') }}" class="card-img-top" alt="{{room.title}}">
+                    <img  src="{{ vich_uploader_asset(room, 'imageFile') }}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">{{ room.title }}</h5>
-                        <p class="card-text">{{ room.description }}</p>
-                        <p></p>
-                        <a href="{{ path('show_room', { 'slug': room.slug })}}" class="btn btn-lg btn-success">Book Now</a>
-                        <a href="#" class="btn btn-lg btn-success">More image</a>
+                        <h5 class="card-title">{{ OneRoom.hotelName }}</h5>
+                        <p class="card-text">{{ OneRoom.description }}</p>
+                        <a href="#" class="btn btn-lg btn-success">Book this room </a>
                     </div>
                 </div>
             </div>

@@ -3,6 +3,7 @@
 namespace App\Security\Voter;
 
 use App\Entity\User;
+use Attribute;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\Security;
@@ -15,13 +16,16 @@ class ManagerUserVoter extends Voter
         $this->security = $security;
     }
 
+    public const NEW  = 'POST_NEW';
     public const EDIT = 'POST_EDIT';
     public const VIEW = 'POST_VIEW';
 
     protected function supports(string $attribute, $subject): bool
     {
-        return in_array($attribute, ['HOTEL_MANAGER_LONDON'])
+       // dd($attribute);
+        return in_array($attribute, ['HOTEL_MANAGER_LONDON', 'EA_ACCESS_ENTITY'])
             && $subject instanceof User; 
+            //dd($subject);
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
@@ -31,7 +35,7 @@ class ManagerUserVoter extends Voter
         if (!$user instanceof UserInterface) {
             return false;
         }
-       // dd($attribute);
+        //dd($subject);
         if(!$subject instanceof User ) {
             throw new \LogicException('Subject is not an instance of User?');
         }  
@@ -39,8 +43,8 @@ class ManagerUserVoter extends Voter
 
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
-            case 'HOTEL_MANAGER_LONDON':
-               // dd($subject);
+            case 'EA_ACCESS_ENTITY':
+                //dd($subject);
                 return $user === $subject || $this->security->isGranted('ROLE_SUPER_ADMIN');
         }
 
