@@ -8,6 +8,9 @@ use Doctrine\Common\Collections\Collection;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Serializer\Annotation\Groups;
+
+
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RoomRepository::class)]
@@ -63,12 +66,18 @@ class Room
     {
         return $this->title; 
     }
-
+    
+    /**
+     * @Groups({"fetch_rooms"})
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @Groups({"fetch_rooms"})
+     */
     public function getTitle(): ?string
     {
         return $this->title;
@@ -122,6 +131,10 @@ class Room
     {
         return $this->imageFile;
     }
+
+    /**
+     * @Groups({"fetch_rooms"})
+     */
     public function getPrice(): ?float
     {
         return $this->price;
@@ -134,6 +147,9 @@ class Room
         return $this;
     }
 
+    /**
+     * @Groups({"fetch_rooms"})
+     */
     public function getIsAvailable(): ?bool
     {
         return $this->isAvailable;

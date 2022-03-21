@@ -2,7 +2,7 @@
 
 {% block title %}Hotel {{ hotel.hotelName }}{% endblock %}
 
-{% block content %} 
+{% block content %}
 <header>
     <div class="p-4 p-md-5 mb-4 text-white  img-fluid rounded banner-image"
         style="background-image: url('{{ asset('images/background-hotel.jpg') }}');">
@@ -15,27 +15,77 @@
 </header>
 <section>
     <div class=" py-5">
+        {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+        {% endfor %}
+
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        {% for room in rooms %}
+            {% for room in rooms %}
             <div class="col  d-flex justify-content-center">
                 <div class="card" style="width: 25rem;">
-                    <img  src="{{ vich_uploader_asset(room, 'imageFile') }}" class="card-img-top img-thumbnail" alt="{{room.title}}">
+                    <img src="{{ vich_uploader_asset(room, 'imageFile') }}" class="card-img-top img-thumbnail"
+                        alt="{{room.title}}">
                     <div class="card-body">
                         <h5 class="card-title">{{ room.title }}</h5>
                         <p class="card-text">{{ room.description }}</p>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item text-center price">Price : {{ (room.price / 100) |number_format (2, ',', '.') }} €</li>
+                            <li class="list-group-item text-center price">Price :
+                                {{ (room.price / 100) |number_format (2, ',', '.') }} €</li>
                         </ul>
                         <div class="card-footer">
-                            <a href="{{ path('show_room', { 'slug': room.slug })}}"><button class="btn link-room button-choose mb-3">Book Now </button></a>
-                            <a href="{{hotel.link}}"><button class="btn link-room button-choose btn-booking">Booking.com </button></a>
-                            
+                            <a id="available" {# href="# {{ path('show_room', { 'slug': room.slug })}} " #}>
+                                <button class="btn link-room button-choose mb-3" data-bs-toggle="modal"
+                                    data-bs-target="#bookingModal">Book Now
+                                </button>
+                            </a>
+                            <a href="{{hotel.link}}"><button class="btn link-room button-choose btn-booking">Booking.com
+                                </button></a>
+                            {# <div id="showAvailable"></div> #}
                         </div>
                     </div>
+                    <!-- Modal -->
+                    {% set form = formObject.createView %}
+                    {{ form_start(form) }}
+                    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="bookingModalLabel">Good choice !</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    {{ form_row(form.getHotelId) }}
+                                    {{ form_row(form.room) }}
+                                    {{ form_row(form.checkin) }}
+                                    {{ form_row(form.checkout) }}
+                                </div>
+                                <div class="modal-footer">
+                                <div class="mb-3">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                </div>
+                                    {{ form_row(form.submit) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                    <!-- End Modal -->
                 </div>
             </div>
-        {% endfor %}
+            {% endfor %}
         </div>
     </div>
 </section>
+
+{% block javascripts %}
+<script></script>
+{{ encore_entry_script_tags('booking') }}
+{% endblock %}
+
+
 {% endblock %}

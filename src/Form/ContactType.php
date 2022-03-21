@@ -20,7 +20,7 @@ class ContactType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'label' => 'Email',
-                'constraints' => new Length(60, 2)
+                /* 'constraints' => new Length(60, 2) */
             ])
             ->add('lastname', TextType::class,[
               'label' => 'Lastname',

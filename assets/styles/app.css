@@ -132,7 +132,7 @@ h1, h2, h3, h4 {
 /* --------------------------------- HOTEL PAGE ----------------------------- */
 
 .banner-image {
-    background-size: 100% auto;
+    background-size: cover;
     background-position: center;
 }
 

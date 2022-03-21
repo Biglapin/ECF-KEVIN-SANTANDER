@@ -5,7 +5,6 @@ namespace App\Controller;
 
 use App\Form\ContactType;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
-use Symfony\Component\Mime\Email;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,10 +23,9 @@ class ContactController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             
             $contactFormData = $form->getData();
-            //dd($contactFormData);
             $message = (new TemplatedEmail())
-                ->from($contactFormData['email'])
-                ->to('kevin.santander@protonmail.ch')
+                ->from('kevin.santander@devfactory.fr')
+                ->to('k.santand@gmail.com')
                 ->subject($contactFormData['subject'])
                 ->htmlTemplate('email/contact.html.twig')
                 ->context([
@@ -37,9 +35,6 @@ class ContactController extends AbstractController
                     'firstname' => $contactFormData['firstname'],
                     'messageData' => $contactFormData['message']
                 ]);
-              /*   ->text('Sender : '.$contactFormData['email'].\PHP_EOL.
-                    $contactFormData['message'],
-                    'text/plain'); */
 
             $mailer->send($message);
 
