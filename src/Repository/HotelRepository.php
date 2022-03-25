@@ -3,10 +3,12 @@
 namespace App\Repository;
 
 use App\Entity\Hotel;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @method Hotel|null find($id, $lockMode = null, $lockVersion = null)
@@ -15,10 +17,12 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Hotel[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class HotelRepository extends ServiceEntityRepository
-{
-    public function __construct(ManagerRegistry $registry)
+{   
+    private $security;
+    public function __construct(ManagerRegistry $registry,Security $security)
     {
         parent::__construct($registry, Hotel::class);
+        $this->security = $security;
     }
 
     /**
@@ -45,32 +49,28 @@ class HotelRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Hotel[] Returns an array of Hotel objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findOneByHotel()
     {
+        $user = $this->security->getUser()->getHotelId();
         return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('h.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Hotel
-    {
-        return $this->createQueryBuilder('h')
-            ->andWhere('h.exampleField = :val')
-            ->setParameter('val', $value)
+            ->where('h.id = :id')
+            ->setParameter('id',$user)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
+
+/*     /**
+    * @return Hotel[] Returns an array of Room objects
+    */  
+/*     public function findByManager()
+    {
+        return $this->createQueryBuilder('h')
+            ->andWhere('h.id = :id')
+            ->setParameter('id', '1')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult()
+        ;
+    } */
 }

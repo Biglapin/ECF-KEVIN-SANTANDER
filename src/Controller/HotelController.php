@@ -52,7 +52,7 @@ class HotelController extends AbstractController
             dd($data);
 
 
-        /*     $this->entityManager->persist($data);
+           /*  $this->entityManager->persist($data);
             $this->entityManager->flush(); */
 
 

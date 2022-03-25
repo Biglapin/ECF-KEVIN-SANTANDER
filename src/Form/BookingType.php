@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Reservation;
 use App\Entity\Room;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -17,10 +18,10 @@ class BookingType extends AbstractType
     {
         $builder
         ->add('getHotelId', EntityType::class, array (
-            'class' => 'App\Entity\room',
+            'class' => Room::class,
             'choice_label' => 'getHotelId',
             'label' => 'Choose your hotel'
-        ))
+        )) 
         ->add('room', EntityType::class, array(
             'class' => 'App\Entity\room',
             'choice_label' => 'title',
@@ -41,7 +42,7 @@ class BookingType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Room::class,
+            'data_class' => Reservation::class,
         ]);
     }
 }

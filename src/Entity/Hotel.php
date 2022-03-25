@@ -68,6 +68,10 @@ class Hotel
     {
         return $this->hotelName;
     }
+    public function findByOneHotelName(): ?string
+    {
+        return $this->hotelName;
+    }
 
     public function setHotelName(string $hotelName): self
     {

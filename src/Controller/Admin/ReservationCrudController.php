@@ -3,6 +3,8 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Reservation;
+use DateTime;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Mapping\Id;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
@@ -27,4 +29,16 @@ class ReservationCrudController extends AbstractCrudController
         ];
     }
     
+    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        $dateCreateAt = new DateTime();
+
+        $entityManager->persist($dateCreateAt);
+        $entityManager->flush();
+    }
+
+    public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
+    {
+        $entityManager->flush();
+    }
 }

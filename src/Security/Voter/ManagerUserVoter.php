@@ -16,14 +16,13 @@ class ManagerUserVoter extends Voter
         $this->security = $security;
     }
 
-    public const NEW  = 'POST_NEW';
     public const EDIT = 'POST_EDIT';
     public const VIEW = 'POST_VIEW';
 
     protected function supports(string $attribute, $subject): bool
     {
        // dd($attribute);
-        return in_array($attribute, ['HOTEL_MANAGER_LONDON', 'EA_ACCESS_ENTITY'])
+        return in_array($attribute, ['HOTEL_MANAGER_LONDON'])
             && $subject instanceof User; 
             //dd($subject);
     }
@@ -43,7 +42,7 @@ class ManagerUserVoter extends Voter
 
         // ... (check conditions and return true to grant permission) ...
         switch ($attribute) {
-            case 'EA_ACCESS_ENTITY':
+            case 'HOTEL_MANAGER_LONDON':
                 //dd($subject);
                 return $user === $subject || $this->security->isGranted('ROLE_SUPER_ADMIN');
         }
