@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Entity\Hotel;
-use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -59,18 +58,4 @@ class HotelRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-
-/*     /**
-    * @return Hotel[] Returns an array of Room objects
-    */  
-/*     public function findByManager()
-    {
-        return $this->createQueryBuilder('h')
-            ->andWhere('h.id = :id')
-            ->setParameter('id', '1')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    } */
 }

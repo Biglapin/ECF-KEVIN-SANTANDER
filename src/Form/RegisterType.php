@@ -27,7 +27,7 @@ class RegisterType extends AbstractType
                 'label' => 'Password',
                 'required' => true, 
                 'first_options' => ['label' => 'Password'],
-                'second_options' => ['label' => 'Password confirmation']
+                'second_options' => ['label' => 'Password Confirmation']
                 ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Submit'
