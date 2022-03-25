@@ -85,24 +85,38 @@ class RoomCrudController extends AbstractCrudController
 
     public function configureFields(string $pageName): iterable
     {        
-       // $hotelRepository = $this->entityManager->getRepository(Hotel::class);
-        $user = $this->security->getUser();
-       // $hotel = $hotelRepository->findBy([id = $user->getHotelId()]);
+    /** @var User $user */
+    $user = $this->security->getUser();
+    $hotel = $user->getHotelId();
 
         return [
             TextField::new('title', 'Title'),
             TextField::new('imageFile')->setFormType(VichImageType::class)->hideOnIndex(),
             ImageField::new('image')->setBasePath('/images/rooms/')->onlyOnIndex(),
             TextareaField::new('description', 'Description'),
-            AssociationField::new('hotelId')->setQueryBuilder(
-                fn (QueryBuilder $queryBuilder) => $queryBuilder->getEntityManager()->getRepository(Hotel::class)->findOneByHotel()),
+            AssociationField::new('hotelId')->setQueryBuilder(function(QueryBuilder $qb) use ($hotel){
+                $qb
+                  ->andWhere('entity = :hotel') 
+                  ->setParameter('hotel', $hotel)
+                ;
+                return $qb;
+            }
+        ),
             MoneyField::new('price')->setCurrency('EUR'),
             BooleanField::new('isAvailable', 'Available')
                 ->renderAsSwitch(false), 
             SlugField::new('slug')->setTargetFieldName('title'),
             UrlField::new('link')
         ];
+        
     }
+
+
+/*     ->setQueryBuilder(
+        fn (QueryBuilder $queryBuilder) => $queryBuilder->getEntityManager()->getRepository(Hotel::class)->findOneByHotel())
+ */
+
+
  /*    public function updateEntity(EntityManagerInterface $entityManager, $hotelId): void
     {
         $user = $this->security->getUser();
