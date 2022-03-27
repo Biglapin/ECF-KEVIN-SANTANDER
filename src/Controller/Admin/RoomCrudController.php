@@ -61,7 +61,6 @@ class RoomCrudController extends AbstractCrudController
     public function createIndexQueryBuilderForManager(SearchDto $searchDto, EntityDto $entityDto, FieldCollection $fields, FilterCollection $filters, $user): QueryBuilder
     {
         $hotelId = $user->getHotelId();
-       // $hotel = $this->hotelRepository->findOneById($hotelId);
 
         $queryBuilder = parent::createIndexQueryBuilder($searchDto, $entityDto, $fields, $filters);
 

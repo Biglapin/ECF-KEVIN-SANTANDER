@@ -43,22 +43,19 @@ class HotelController extends AbstractController
         $room = new Room();
         $form = $this->createForm(BookingType::class)->handleRequest($request);
         
-            
-    
-
         if($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
             
             dd($data);
-
-
-           /*  $this->entityManager->persist($data);
-            $this->entityManager->flush(); */
+            $room->setTitle($hotel);
+            dd($room);
+            $this->entityManager->persist($data);
+            $this->entityManager->flush();
 
 
         $this->addFlash('success', 'Booking ok');
 
-            return $this->redirectToRoute('/');
+            return $this->redirectToRoute('account');
         } else {
 
         }

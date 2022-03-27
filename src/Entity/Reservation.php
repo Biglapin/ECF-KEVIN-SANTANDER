@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ReservationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ReservationRepository::class)]
@@ -27,6 +29,20 @@ class Reservation
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'reservations')]
     private $customerId;
+
+    #[ORM\ManyToMany(targetEntity: Hotel::class, inversedBy: 'reservations')]
+    private $hotel;
+
+    public function __construct()
+    {
+        $this->hotel = new ArrayCollection();
+        $this->createdAt  = new \DateTime("now");
+    }
+
+    public function __toString(): string
+    {
+        return $this->hotel; 
+    }
 
     public function getId(): ?int
     {
@@ -59,7 +75,7 @@ class Reservation
 
     public function getCreatedAt(): ?\DateTime
     {
-        return $this->createdAt;
+        return $this->createdAt  = new \DateTime("now");
     }
 
     public function setCreatedAt(\DateTime $createdAt): self
@@ -89,6 +105,30 @@ class Reservation
     public function setCustomerId(?User $customerId): self
     {
         $this->customerId = $customerId;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Hotel>
+     */
+    public function getHotel(): Collection
+    {
+        return $this->hotel;
+    }
+
+    public function addHotel(Hotel $hotel): self
+    {
+        if (!$this->hotel->contains($hotel)) {
+            $this->hotel[] = $hotel;
+        }
+
+        return $this;
+    }
+
+    public function removeHotel(Hotel $hotel): self
+    {
+        $this->hotel->removeElement($hotel);
 
         return $this;
     }
