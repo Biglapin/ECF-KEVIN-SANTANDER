@@ -27,7 +27,6 @@ class BookingType extends AbstractType
             'class' => Room::class,
             'choice_label' => 'title',
             'label' => "Choose your room",
-            //'mapped' => false
         ))
         ->add('checkin', DateType::class, [
             'label' => 'Check in',

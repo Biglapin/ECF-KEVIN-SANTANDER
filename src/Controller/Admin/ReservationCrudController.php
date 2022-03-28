@@ -29,7 +29,7 @@ class ReservationCrudController extends AbstractCrudController
         ];
     }
     
-    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
+/*     public function persistEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         $dateCreateAt = new DateTime();
 
@@ -40,5 +40,5 @@ class ReservationCrudController extends AbstractCrudController
     public function updateEntity(EntityManagerInterface $entityManager, $entityInstance): void
     {
         $entityManager->flush();
-    }
+    } */
 }

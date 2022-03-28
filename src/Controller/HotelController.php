@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Hotel;
 use App\Entity\Reservation;
-use App\Entity\Room;
 use App\Form\BookingType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,12 +40,18 @@ class HotelController extends AbstractController
         $rooms = $hotel->getRooms();
 
         //Booking form
-
         $booking = new Reservation();
+        $user = $this->security->getUser();
         $form = $this->createForm(BookingType::class, $booking)->handleRequest($request);
         
         if($form->isSubmitted() && $form->isValid()) {
 
+            if (!$user) {
+                return $this->redirectToRoute('app_login');
+            }
+            $booking->setCustomerId($user);
+
+            $this->entityManager->persist($user);
             $this->entityManager->persist($booking);
             $this->entityManager->flush();
 
