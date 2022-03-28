@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Hotel;
+use App\Entity\Reservation;
 use App\Entity\Room;
 use App\Form\BookingType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -10,10 +11,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class HotelController extends AbstractController
 {
-    public function __construct(private EntityManagerInterface $entityManager)
+    public function __construct(private EntityManagerInterface $entityManager, private Security $security)
     {}
 
     #[Route('/hotel', name: 'hotels')]
@@ -40,16 +42,21 @@ class HotelController extends AbstractController
 
         //Booking form
 
-        $room = new Room();
+       /*  $room = new Room();*/
+        $booking = new Reservation();
         $form = $this->createForm(BookingType::class)->handleRequest($request);
         
         if($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
+            $room = $form['room']->getData()->getTitle();
+            foreach ($booking->getRoomId($room) as $value) {
+                $this->entityManager->persist($value);
+            } 
+           /*  $roomBook = $booking->setRoomId($room);
             
-            dd($data);
-            $room->setTitle($hotel);
-            dd($room);
-            $this->entityManager->persist($data);
+            $data = $form->getData();
+           
+            $this->entityManager->persist($roomBook); */
+            $this->entityManager->persist($booking);
             $this->entityManager->flush();
 
 

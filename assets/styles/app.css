@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crims on+Pro:ital@1&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200;1,400&display=swap');
 
 /* Typography */
@@ -14,6 +14,9 @@ h1, h2, h3, h4 {
 /* Homepage */
 .navbar {
     background-color: #fff;
+}
+.link-button {
+    margin-right: 0.5rem;
 }
 .container-background {
     position: relative;

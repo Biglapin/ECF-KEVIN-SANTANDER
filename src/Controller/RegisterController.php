@@ -29,9 +29,11 @@ class RegisterController extends AbstractController
             $password = $passwordHasher->hashPassword($user, $user->getPassword());
           
             $user->setPassword($password);
-            
+            $user->setRoles(["ROLE_CLIENT"]);
             $this->entityManager->persist($user);
             $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_login');
         } else {
 
         }

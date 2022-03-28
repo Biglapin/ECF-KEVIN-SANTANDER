@@ -24,7 +24,7 @@ class BookingType extends AbstractType
             'mapped' => false
         )) 
         ->add('room', EntityType::class, array(
-            'class' => 'App\Entity\room',
+            'class' => Room::class,
             'choice_label' => 'title',
             'label' => "Choose your room",
             'mapped' => false

@@ -42,6 +42,7 @@ class Reservation
     public function __toString(): string
     {
         return $this->hotel; 
+        return $this->roomId;
     }
 
     public function getId(): ?int

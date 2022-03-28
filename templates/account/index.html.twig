@@ -3,10 +3,15 @@
 {% block title %}Account - Hypnos{% endblock %}
 
 {% block content %}
-<div class="container">
+<header class="container">
     <h1>My account</h1>
-    <p> Bienvenue {# {{ app.user.firstname }} #}</p>
-    <a href="{{ path('account_password') }}">Modify password</a>
-</div>
+    <h2>Welcome {{ app.user.firstname }} </h2>
+    <a class='mb-5'href="{{ path('account_password') }}">Modify password</a>
+</header>
+<section>
+    <div class="container mt-5">
+        <p>Your booking history</p>
+    </div>
+</section>
 
 {% endblock %}
