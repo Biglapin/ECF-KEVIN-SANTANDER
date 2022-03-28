@@ -49,7 +49,7 @@ class Hotel
 
     #[Vich\UploadableField(mapping: 'hotels_images' ,fileNameProperty: 'image')]
     private ?File $imageFile = null;
-
+    
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -65,10 +65,6 @@ class Hotel
     }
 
     public function getHotelName(): ?string
-    {
-        return $this->hotelName;
-    }
-    public function findByOneHotelName(): ?string
     {
         return $this->hotelName;
     }

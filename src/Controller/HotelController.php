@@ -42,20 +42,11 @@ class HotelController extends AbstractController
 
         //Booking form
 
-       /*  $room = new Room();*/
         $booking = new Reservation();
-        $form = $this->createForm(BookingType::class)->handleRequest($request);
+        $form = $this->createForm(BookingType::class, $booking)->handleRequest($request);
         
         if($form->isSubmitted() && $form->isValid()) {
-            $room = $form['room']->getData()->getTitle();
-            foreach ($booking->getRoomId($room) as $value) {
-                $this->entityManager->persist($value);
-            } 
-           /*  $roomBook = $booking->setRoomId($room);
-            
-            $data = $form->getData();
-           
-            $this->entityManager->persist($roomBook); */
+
             $this->entityManager->persist($booking);
             $this->entityManager->flush();
 

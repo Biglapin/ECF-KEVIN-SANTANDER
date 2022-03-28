@@ -23,11 +23,11 @@ class BookingType extends AbstractType
             'label' => 'Choose your hotel',
             'mapped' => false
         )) 
-        ->add('room', EntityType::class, array(
+        ->add('roomId', EntityType::class, array(
             'class' => Room::class,
             'choice_label' => 'title',
             'label' => "Choose your room",
-            'mapped' => false
+            //'mapped' => false
         ))
         ->add('checkin', DateType::class, [
             'label' => 'Check in',
