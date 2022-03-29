@@ -111,11 +111,6 @@ class RoomCrudController extends AbstractCrudController
     }
 
 
-/*     ->setQueryBuilder(
-        fn (QueryBuilder $queryBuilder) => $queryBuilder->getEntityManager()->getRepository(Hotel::class)->findOneByHotel())
- */
-
-
  /*    public function updateEntity(EntityManagerInterface $entityManager, $hotelId): void
     {
         $user = $this->security->getUser();

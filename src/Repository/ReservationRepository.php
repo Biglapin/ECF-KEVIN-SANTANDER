@@ -7,6 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\Security;
 
 /**
  * @method Reservation|null find($id, $lockMode = null, $lockVersion = null)
@@ -16,7 +17,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ReservationRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry,private Security $security)
     {
         parent::__construct($registry, Reservation::class);
     }
@@ -44,6 +45,21 @@ class ReservationRepository extends ServiceEntityRepository
             $this->_em->flush();
         }
     }
+
+
+    public function findHistory($user)
+    {
+        $user = $this->security->getUser();
+        
+        return $this->createQueryBuilder('r')
+            ->where('r.customerId = :customerId')
+            ->setParameter('customerId',$user)
+            ->getQuery()
+            ->getResult();
+        ;
+    }
+
+
 
     // /**
     //  * @return Reservation[] Returns an array of Reservation objects

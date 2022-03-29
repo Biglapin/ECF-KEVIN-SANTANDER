@@ -4,14 +4,22 @@
 
 {% block content %}
 <header class="container">
-    <h1>My account</h1>
-    <h2>Welcome {{ app.user.firstname }} </h2>
-    <a class='mb-5'href="{{ path('account_password') }}">Modify password</a>
+    <h1>My account - welcome {{ app.user.firstname }}</h1>
+    <a class='mb-5'href="{{ path('account_password') }}"><button class="btn btn-outline-dark">Modify password</button></a>
 </header>
 <section>
+    {% for accountHistoryInfo in accountHistory %}
     <div class="container mt-5">
-        <p>Your booking history</p>
+        <h2>Your booking history</h2>
+        <div class="h-100 p-5 bg-light border rounded-3">
+            <h3>Booking n° #{{ accountHistoryInfo.id }}</h3>
+            <p>{{ accountHistoryInfo.roomId.title }}</p>
+            <p>{{ accountHistoryInfo.checkin.format('d/m/y') }}</p>
+            <p>{{ accountHistoryInfo.checkout.format('d/m/y') }}</p>
+            <button class="btn btn-outline-secondary" type="button">Cancel</button>
+        </div>
     </div>
+    {% endfor %}
 </section>
 
 {% endblock %}
