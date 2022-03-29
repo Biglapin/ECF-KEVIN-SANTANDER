@@ -183,7 +183,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getHotelId()
     {
-        return $this->hotelId->getId();
+        return $this->hotelId;
     }
 
     public function setHotelId(?Hotel $hotelId): self
