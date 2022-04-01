@@ -3,12 +3,11 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Reservation;
-use DateTime;
-use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Mapping\Id;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
+
 
 class ReservationCrudController extends AbstractCrudController
 {
@@ -17,7 +16,6 @@ class ReservationCrudController extends AbstractCrudController
         return Reservation::class;
     }
 
-    
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -26,6 +24,7 @@ class ReservationCrudController extends AbstractCrudController
             DateField::new('checkin', 'Check-in'),
             DateField::new('checkout', 'Check-out'),
             DateField::new('created_at'),
+            BooleanField::new('isBooked'),
         ];
     }
     

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Reservation;
 use App\Entity\Room;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -44,9 +45,9 @@ class RoomController extends AbstractController
     #[Route('/fetchroom', name: 'fetch_rooms', methods: ['GET'])]
     public function fetchAllRoom(): Response
     {
-        $allRooms = $this->entityManager->getRepository(Room::class)->findAll();
+        $suite = $this->entityManager->getRepository(Reservation::class)->findBySuite();
 
-        $data = $this->serializer->serialize($allRooms, 'json', ['groups' => 'fetch_rooms']); 
+        $data = $this->serializer->serialize($suite, 'json', ['groups' => 'fetch_rooms']); 
         
         $response = new Response($data, 200, [
             'Content-Type', 'application/json'

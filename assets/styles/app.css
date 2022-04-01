@@ -140,6 +140,7 @@ h1, h2, h3, h4 {
 }
 
 .card-img-top {
+    min-height: 290px;
     max-height: 290px;
 }
 .card-text {

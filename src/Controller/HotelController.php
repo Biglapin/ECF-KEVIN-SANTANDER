@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Hotel;
 use App\Entity\Reservation;
 use App\Form\BookingType;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,6 +31,7 @@ class HotelController extends AbstractController
     #[Route('/hotel/{slug}', name: 'show_hotel')]
     public function show($slug, Request $request): Response
     {
+
         $hotel = $this->entityManager->getRepository(Hotel::class)->findOneBySlug($slug);
         
         //if slug is not found redirect on the hotels homepage
@@ -38,7 +40,6 @@ class HotelController extends AbstractController
         } 
         //get all rooms and display them in the twig template with a foreach. 
         $rooms = $hotel->getRooms();
-
         //Booking form
         $booking = new Reservation();
         $user = $this->security->getUser();
@@ -49,14 +50,16 @@ class HotelController extends AbstractController
             if (!$user) {
                 return $this->redirectToRoute('app_login');
             }
+            
             $booking->setCustomerId($user);
-
+            $booking->setIsBooked(true);
+            
             $this->entityManager->persist($user);
             $this->entityManager->persist($booking);
             $this->entityManager->flush();
 
 
-        $this->addFlash('success', 'Booking ok');
+        $this->addFlash('success', 'You room has been booked!');
 
             return $this->redirectToRoute('account');
         } else {

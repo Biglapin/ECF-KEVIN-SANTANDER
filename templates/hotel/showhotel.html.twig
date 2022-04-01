@@ -15,12 +15,6 @@
 </header>
 <section>
     <div class=" py-5">
-        {% for message in app.flashes('success') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-        {% endfor %}
-
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
             {% for room in rooms %}
             <div class="col  d-flex justify-content-center">
@@ -35,14 +29,14 @@
                                 {{ (room.price / 100) |number_format (2, ',', '.') }} €</li>
                         </ul>
                         <div class="card-footer">
-                            <a id="available" {# href="# {{ path('show_room', { 'slug': room.slug })}} " #}>
+                            <a {# id="available" #} {# href="# {{ path('show_room', { 'slug': room.slug })}} " #}>
                                 <button class="btn link-room button-choose mb-3" data-bs-toggle="modal"
                                     data-bs-target="#bookingModal">Book Now
                                 </button>
                             </a>
                             <a href="{{hotel.link}}"><button class="btn link-room button-choose btn-booking">Booking.com
                                 </button></a>
-                            {# <div id="showAvailable"></div> #}
+                            
                         </div>
                     </div>
                     <!-- Modal -->
@@ -57,6 +51,7 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>
+                                <div id="showAvailable"></div>
                                 <div class="modal-body">
                                     {{ form_row(form.getHotelId) }}
                                     {{ form_row(form.roomId) }}
@@ -85,6 +80,33 @@
 {% block javascripts %}
 <script></script>
 {{ encore_entry_script_tags('booking') }}
+{# <script>
+document.querySelector(document).ready(function () {
+			document.querySelector("#booking_startDate").datepicker({
+				format: 'dd/mm/yyyy',
+				datesDisabled: [
+					{% for day in ad.notAvailableDays %}
+						"{{ day.format('d/m/Y') }}",
+					{% endfor %}
+				],
+				startDate: new Date()
+			});
+			document.querySelector("#booking_endDate").datepicker({
+				format: 'dd/mm/yyyy',
+				datesDisabled: [
+					{% for day in ad.notAvailableDays %}
+						"{{ day.format('d/m/Y') }}",
+					{% endfor %}
+				]
+			});
+			
+			
+			document.querySelector("#booking_startDate").addEventListener('change', calculateAmount);
+			document.querySelector("#booking_endDate").addEventListener('change', calculateAmount);
+			
+		})
+					
+    </script> #}
 {% endblock %}
 
 

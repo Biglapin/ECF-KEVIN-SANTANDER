@@ -37,7 +37,9 @@ class BookingType extends AbstractType
             'label' => 'Check out',
             'widget' => 'single_text'
         ])
-        ->add('submit', SubmitType::class);
+        ->add('submit', SubmitType::class, [
+            'label' => 'Book Now'
+        ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

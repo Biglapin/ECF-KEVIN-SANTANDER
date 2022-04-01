@@ -8,15 +8,30 @@
     <a class='mb-5'href="{{ path('account_password') }}"><button class="btn btn-outline-dark">Modify password</button></a>
 </header>
 <section>
+    {% for message in app.flashes('success') %}
+        <div class="mt-4 container alert alert-success" role="alert">
+            <h4 class="alert-heading">Well done!</h4>
+            <p>{{ message }}</p>
+            <hr>
+        </div>  
+
+            
+        
+    {% endfor %}
+
     {% for accountHistoryInfo in accountHistory %}
     <div class="container mt-5">
         <h2>Your booking history</h2>
         <div class="h-100 p-5 bg-light border rounded-3">
             <h3>Booking n° #{{ accountHistoryInfo.id }}</h3>
             <p>{{ accountHistoryInfo.roomId.title }}</p>
-            <p>{{ accountHistoryInfo.checkin.format('d/m/y') }}</p>
-            <p>{{ accountHistoryInfo.checkout.format('d/m/y') }}</p>
-            <button class="btn btn-outline-secondary" type="button">Cancel</button>
+            <p>{{ accountHistoryInfo.checkin.format('d/m/yyyy') }}</p>
+            <p>{{ accountHistoryInfo.checkout.format('d/m/yyyy') }}</p>
+            <a href="{{ path('cancel_book', {'id': accountHistoryInfo.id })}}">
+                <button onclick="return confirm('Are you sure you want to cancel your reservation?')" class="btn btn-outline-danger" type="button">
+                Cancel
+            </button>
+            </a>
         </div>
     </div>
     {% endfor %}
