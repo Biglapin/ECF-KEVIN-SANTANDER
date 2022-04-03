@@ -59,34 +59,19 @@ class ReservationRepository extends ServiceEntityRepository
         ;
     }
 
-
-
-    // /**
-    //  * @return Reservation[] Returns an array of Reservation objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findAvailableRooms($checkin, $checkout, $room)
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
+        $qb = $this->getEntityManager()->createQueryBuilder()
+            ->select('r')
+            ->from(Reservation::class, 'r')
+            ->andWhere('r.checkin BETWEEN :checkin AND :checkout OR r.checkout BETWEEN :checkin AND :checkout OR :checkin BETWEEN r.checkin AND r.checkout')
+            ->andWhere('r.roomId = :roomId')
+            ->setParameter('checkin', $checkin)
+            ->setParameter('checkout', $checkout)
+            ->setParameter('roomId', $room)
         ;
-    }
-    */
+        $result = $qb->getQuery()->getResult();
 
-    /*
-    public function findOneBySomeField($value): ?Reservation
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+        return $result;
+    } 
 }

@@ -7,17 +7,10 @@ use App\Entity\Room;
 use App\Entity\User;
 use App\Repository\HotelRepository;
 use App\Repository\RoomRepository;
-use Doctrine\DBAL\Query\QueryBuilder as QueryQueryBuilder;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\Query\AST\Join as ASTJoin;
-use Doctrine\ORM\Query\Expr\Join;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
 use Doctrine\ORM\QueryBuilder;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
-use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Config\UserMenu;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
@@ -27,12 +20,9 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\MoneyField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\UrlField;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
-use EasyCorp\Bundle\EasyAdminBundle\Orm\EntityRepository;
 use Symfony\Component\Security\Core\Security;
 
 class RoomCrudController extends AbstractCrudController
@@ -69,14 +59,6 @@ class RoomCrudController extends AbstractCrudController
             ->setParameter('hotelId', $hotelId);
     }
     
-    
-    /*    public function configureCrud(Crud $crud): Crud   
-    {
-        return parent::configureCrud($crud)
-            ->setEntityPermission('HOTEL_MANAGER_LONDON');
-    }  
-    */
-
     public static function getEntityFqcn(): string
     {
         return Room::class;
@@ -92,13 +74,20 @@ class RoomCrudController extends AbstractCrudController
             TextField::new('title', 'Title'),
             TextField::new('imageFile')->setFormType(VichImageType::class)->hideOnIndex(),
             ImageField::new('image')->setBasePath('/images/rooms/')->onlyOnIndex(),
+            TextField::new('secondImageFile')->setFormType(VichImageType::class)->hideOnIndex(),
+            ImageField::new('secondImage')->setBasePath('/images/rooms/')->onlyOnIndex(),
             TextareaField::new('description', 'Description'),
             AssociationField::new('hotelId')->setQueryBuilder(function(QueryBuilder $qb) use ($hotel){
-                $qb
-                  ->andWhere('entity = :hotel') 
-                  ->setParameter('hotel', $hotel)
-                ;
+                if ($this->isGranted('ROLE_SUPER_ADMIN')) {
+                    return $qb;
+                } else {
+                    $qb
+                    ->andWhere('entity = :hotel') 
+                    ->setParameter('hotel', $hotel)
+                    ;
+                }
                 return $qb;
+
             }
         ),
             MoneyField::new('price')->setCurrency('EUR'),
@@ -109,22 +98,4 @@ class RoomCrudController extends AbstractCrudController
         ];
         
     }
-
-
- /*    public function updateEntity(EntityManagerInterface $entityManager, $hotelId): void
-    {
-        $user = $this->security->getUser();
-        $hotelId = $user->getHotelId();
-        $hotelId->setHotelId($hotelId->getHotelId());
-        dd($hotelId);
-        $entityManager->flush();
-    }
-
-    public function persistEntity(EntityManagerInterface $entityManager, $entityInstance, $user): void
-    {
-        $entityInstance->setHotelId($entityInstance->getHotelId($hotelId = $user->getHotelId()));
-        //dd($entityInstance);
-        $entityManager->persist($entityInstance);
-        $entityManager->flush();
-    } */
 }

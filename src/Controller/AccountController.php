@@ -31,6 +31,14 @@ class AccountController extends AbstractController
     #[Route('/account/{id}', name: 'cancel_book', methods: ['GET'])]
     public function cancelBooking(Reservation $booking): Response
     {
+        $date = new DateTime();
+        $dateBooking = $booking->getCheckin()->modify('- 3 days');
+        
+        if ($dateBooking <= $date) {
+            $this->addFlash('danger', 'You can\'t cancel a booking within the last 3 days');
+
+            return $this->redirectToRoute('account');
+        }
         $this->entityManager->remove($booking);
         $this->entityManager->flush();
 

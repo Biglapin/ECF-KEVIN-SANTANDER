@@ -16,6 +16,8 @@ import { Tooltip, Toast, Popover } from 'bootstrap';
 // start the Stimulus application
 import './bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { DateTime } from "luxon";
+
 
 var myModal = document.getElementById('myModal')
 var myInput = document.getElementById('myInput')
@@ -25,10 +27,17 @@ myModal.addEventListener('shown.bs.modal', function () {
 })
 
 
+
+//check if the room is available.
+
+//api fetch 
 const fetchButton = document.getElementById('available');
 
 fetchButton.addEventListener('click', function() {
   const url = '/fetchroom';
+  var e = document.getElementById("booking_roomId");
+  var strUser = e.value;
+  console.log(strUser);
 
   fetch(url).then((response) => 
     response.json().then((data) => {
@@ -43,3 +52,4 @@ fetchButton.addEventListener('click', function() {
     })
   );
 });
+

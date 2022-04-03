@@ -47,15 +47,24 @@ class HotelController extends AbstractController
         
         if($form->isSubmitted() && $form->isValid()) {
 
+         $availableData = $this->entityManager->getRepository(Reservation::class)
+            ->findAvailableRooms($booking->getCheckin(), $booking->getCheckout(), $booking->getRoomId());
+          //dd($availableData);
+            
+
+
             if (!$user) {
                 return $this->redirectToRoute('app_login');
             }
             
             $booking->setCustomerId($user);
             $booking->setIsBooked(true);
-            
+            $booking->getCheckin();
+            $booking->getCheckout();
+
             $this->entityManager->persist($user);
             $this->entityManager->persist($booking);
+    
             $this->entityManager->flush();
 
 

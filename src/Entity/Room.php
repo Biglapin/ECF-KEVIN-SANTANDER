@@ -17,6 +17,9 @@ use Doctrine\ORM\Mapping as ORM;
 #[Vich\Uploadable]
 class Room
 {
+    /**
+     * @Groups({"fetch_rooms"})
+     */
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
@@ -33,6 +36,12 @@ class Room
     
     #[Vich\UploadableField(mapping: 'rooms_images' ,fileNameProperty: 'image')]
     private ?File $imageFile = null;
+
+    #[ORM\Column(type: 'string', length: 255)]
+    private $secondImage;
+    
+    #[Vich\UploadableField(mapping: 'rooms_images' ,fileNameProperty: 'secondImage')]
+    private ?File $secondImageFile = null;
 
     #[ORM\Column(type: 'float')]
     private $price;
@@ -66,18 +75,12 @@ class Room
     {
         return $this->title;
     }
-    
-    /**
-     * @Groups({"fetch_rooms"})
-     */
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    /**
-     * @Groups({"fetch_rooms"})
-     */
     public function getTitle(): ?string
     {
         return $this->title;
@@ -113,6 +116,11 @@ class Room
 
         return $this;
     }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
     
     public function setImageFile(File $image = null)
     {
@@ -127,10 +135,40 @@ class Room
         }
     }
 
-    public function getImageFile()
+
+
+
+
+    public function getSecondImage(): ?string
     {
-        return $this->imageFile;
+        return $this->secondImage;
     }
+
+    public function setSecondImage(string $secondImage): self
+    {
+        $this->secondImage = $secondImage;
+
+        return $this;
+    }
+    
+    public function getSecondImageFile()
+    {
+        return $this->secondImageFile;
+    }
+    public function setSecondImageFile(File $secondImage = null)
+    {
+        $this->secondImageFile = $secondImage;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($secondImage) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+
 
     /**
      * @Groups({"fetch_rooms"})

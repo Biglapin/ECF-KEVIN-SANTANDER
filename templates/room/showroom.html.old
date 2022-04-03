@@ -24,7 +24,8 @@
         {% for OneRoom in room %}
             <div class="col  d-flex justify-content-center">
                 <div class="card" style="width: 18rem;">
-                    <img  src="{{ vich_uploader_asset(room, 'imageFile') }}" class="card-img-top" alt="...">
+                    <img  src="{{ vich_uploader_asset(room, 'imageFile') }}" class="card-img-top" alt="{{ OneRoom.hotelName }}">
+                    <img  src="{{ vich_uploader_asset(room, 'secondImageFile') }}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{ OneRoom.hotelName }}</h5>
                         <p class="card-text">{{ OneRoom.description }}</p>

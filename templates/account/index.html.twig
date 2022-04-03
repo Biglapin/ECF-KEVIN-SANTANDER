@@ -6,6 +6,9 @@
 <header class="container">
     <h1>My account - welcome {{ app.user.firstname }}</h1>
     <a class='mb-5'href="{{ path('account_password') }}"><button class="btn btn-outline-dark">Modify password</button></a>
+    {% if is_granted('ROLE_SUPER_ADMIN') or is_granted('ROLE_MANAGER')%}
+        <a class='mb-5'href="{{ path('admin') }}"><button class="btn btn-outline-dark">Admin</button></a>
+    {% endif %}
 </header>
 <section>
     {% for message in app.flashes('success') %}
@@ -14,9 +17,12 @@
             <p>{{ message }}</p>
             <hr>
         </div>  
-
-            
-        
+    {% endfor %}
+        {% for message in app.flashes('danger') %}
+        <div class="mt-4 container alert alert-danger" role="alert">
+            <p>{{ message }}</p>
+            <hr>
+        </div>  
     {% endfor %}
 
     {% for accountHistoryInfo in accountHistory %}
@@ -25,12 +31,13 @@
         <div class="h-100 p-5 bg-light border rounded-3">
             <h3>Booking n° #{{ accountHistoryInfo.id }}</h3>
             <p>{{ accountHistoryInfo.roomId.title }}</p>
-            <p>{{ accountHistoryInfo.checkin.format('d/m/yyyy') }}</p>
-            <p>{{ accountHistoryInfo.checkout.format('d/m/yyyy') }}</p>
+            <p>{{ accountHistoryInfo.checkin.format('d/m/yy') }}</p>
+            <p>{{ accountHistoryInfo.checkout.format('d/m/yy') }}</p>
             <a href="{{ path('cancel_book', {'id': accountHistoryInfo.id })}}">
-                <button onclick="return confirm('Are you sure you want to cancel your reservation?')" class="btn btn-outline-danger" type="button">
-                Cancel
-            </button>
+                <button onclick="return confirm('Are you sure you want to cancel your reservation?')" 
+                        class="btn btn-outline-danger" 
+                        type="button">Cancel
+                </button>
             </a>
         </div>
     </div>

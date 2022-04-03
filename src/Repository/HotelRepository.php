@@ -53,7 +53,7 @@ class HotelRepository extends ServiceEntityRepository
         $user = $this->security->getUser()->getHotelId();
         return $this->createQueryBuilder('h')
             ->where('h.id = :id')
-            ->setParameter('id',dd($user))
+            ->setParameter('id',$user)
             ->getQuery()
             ->getOneOrNullResult()
         ;

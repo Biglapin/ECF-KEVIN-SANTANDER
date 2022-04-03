@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\Reservation;
 use App\Entity\Room;
+use App\Repository\HotelRepository;
+use App\Repository\RoomRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -25,8 +27,17 @@ class BookingType extends AbstractType
         )) 
         ->add('roomId', EntityType::class, array(
             'class' => Room::class,
-            'choice_label' => 'title',
+            //'choice_label' => 'title',
             'label' => "Choose your room",
+/*             'query_builder' => function (RoomRepository $er) use ($options) {
+                return $er->createQueryBuilder('h')
+                ->andWhere('hotelId = :hotelId') 
+                ->setParameter('hotelId', $options['hotelId']);
+            }, */
+            'choice_label' => function ($title) {
+                return $title->getTitle();
+            }
+            
         ))
         ->add('checkin', DateType::class, [
             'label' => 'Check in',

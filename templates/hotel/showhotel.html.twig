@@ -21,6 +21,8 @@
                 <div class="card" style="width: 25rem;">
                     <img src="{{ vich_uploader_asset(room, 'imageFile') }}" class="card-img-top img-thumbnail"
                         alt="{{room.title}}">
+                    <img src="{{ vich_uploader_asset(room, 'secondImageFile') }}" class="card-img-top img-thumbnail"
+                        alt="{{room.title}}">
                     <div class="card-body">
                         <h5 class="card-title">{{ room.title }}</h5>
                         <p class="card-text">{{ room.description }}</p>
@@ -48,6 +50,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="bookingModalLabel">Good choice !</h5>
+                                    <button href="#" id="available" class="btn btn-success">Check</button>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                         aria-label="Close"></button>
                                 </div>

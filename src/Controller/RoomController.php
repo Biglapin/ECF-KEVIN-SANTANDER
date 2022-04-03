@@ -6,6 +6,7 @@ use App\Entity\Reservation;
 use App\Entity\Room;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -32,7 +33,6 @@ class RoomController extends AbstractController
     public function show($slug): Response
     {
         $room = $this->entityManager->getRepository(Room::class)->findOneBySlug($slug);
-        
         if(!$room) {
             return $this->redirectToRoute('hotels');
         }
@@ -45,15 +45,17 @@ class RoomController extends AbstractController
     #[Route('/fetchroom', name: 'fetch_rooms', methods: ['GET'])]
     public function fetchAllRoom(): Response
     {
-        $suite = $this->entityManager->getRepository(Reservation::class)->findBySuite();
+        $booking = new Reservation();
+        $suiteAvailable = $this->entityManager->getRepository(Reservation::class)->findAll();
+        //->findAvailableRooms($booking->getCheckin(), $booking->getCheckout(), $booking->getRoomId());
 
-        $data = $this->serializer->serialize($suite, 'json', ['groups' => 'fetch_rooms']); 
+        $data = $this->serializer->serialize($suiteAvailable, 'json', ['groups' => 'fetch_rooms']); 
         
         $response = new Response($data, 200, [
             'Content-Type', 'application/json'
-        ]);
+        ]); 
 
-        return $response; 
+        return $response;  
     }
 
 }
