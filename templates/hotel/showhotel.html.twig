@@ -37,8 +37,8 @@
                                 </button>
                             </a>
                             <a href="{{hotel.link}}"><button class="btn link-room button-choose btn-booking">Booking.com
-                                </button></a>
-                            
+                                </button>
+                            </a>  
                         </div>
                     </div>
                     <!-- Modal -->
@@ -50,9 +50,9 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h5 class="modal-title" id="bookingModalLabel">Good choice !</h5>
-                                    <button href="#" id="available" class="btn btn-success">Check</button>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
+                                        aria-label="Close">
+                                    </button>
                                 </div>
                                 <div id="showAvailable"></div>
                                 <div class="modal-body">
@@ -66,7 +66,10 @@
                                     <button type="button" class="btn btn-secondary"
                                         data-bs-dismiss="modal">Close</button>
                                 </div>
-                                    {{ form_row(form.submit) }}
+                                <div class="mb-3">
+                                    <button href="#" id="available" class="btn btn-success">Check if I'm free !</button>
+                                </div>
+                                    {{ form_row(form.submit, { 'id' : 'btnBooking'}) }}
                                 </div>
                             </div>
                         </div>

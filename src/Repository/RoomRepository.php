@@ -45,6 +45,15 @@ class RoomRepository extends ServiceEntityRepository
         }
     }
 
+    public function findOneBySlug(string $slug): ?Room
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
     /*
     public function findOneBySomeField($value): ?Room
     {

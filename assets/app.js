@@ -30,7 +30,7 @@ myModal.addEventListener('shown.bs.modal', function () {
 
 //check if the room is available.
 
-//api fetch 
+/* //api fetch 
 const fetchButton = document.getElementById('available');
 
 fetchButton.addEventListener('click', function() {
@@ -51,5 +51,5 @@ fetchButton.addEventListener('click', function() {
 
     })
   );
-});
+}); */
 

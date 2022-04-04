@@ -29,10 +29,10 @@ class BookingType extends AbstractType
             'class' => Room::class,
             //'choice_label' => 'title',
             'label' => "Choose your room",
-/*             'query_builder' => function (RoomRepository $er) use ($options) {
+ /*            'query_builder' => function (RoomRepository $er) use ($options) {
                 return $er->createQueryBuilder('h')
-                ->andWhere('hotelId = :hotelId') 
-                ->setParameter('hotelId', $options['hotelId']);
+                ->andWhere('hotelId = :hotel') 
+                ->setParameter('hotel', $options['hotelId']);
             }, */
             'choice_label' => function ($title) {
                 return $title->getTitle();

@@ -16,11 +16,13 @@ use Symfony\Component\Security\Core\Security;
 class HotelController extends AbstractController
 {
     public function __construct(private EntityManagerInterface $entityManager, private Security $security)
-    {}
+    {
+    }
+
 
     #[Route('/hotel', name: 'hotels')]
     public function index(): Response
-    {
+    {  
         $hotels = $this->entityManager->getRepository(Hotel::class)->findAll();
 
         return $this->render('hotel/index.html.twig', [
@@ -38,7 +40,7 @@ class HotelController extends AbstractController
         if(!$hotel) {
             return $this->redirectToRoute('hotels');
         } 
-        //get all rooms and display them in the twig template with a foreach. 
+        //get all rooms and display them in the twig template
         $rooms = $hotel->getRooms();
         //Booking form
         $booking = new Reservation();
@@ -47,12 +49,9 @@ class HotelController extends AbstractController
         
         if($form->isSubmitted() && $form->isValid()) {
 
-         $availableData = $this->entityManager->getRepository(Reservation::class)
+        $availableData = $this->entityManager->getRepository(Reservation::class)
             ->findAvailableRooms($booking->getCheckin(), $booking->getCheckout(), $booking->getRoomId());
-          //dd($availableData);
-            
-
-
+       
             if (!$user) {
                 return $this->redirectToRoute('app_login');
             }
