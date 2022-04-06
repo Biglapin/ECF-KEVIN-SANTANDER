@@ -60,7 +60,7 @@ class Reservation
 
     public function __toString(): string
     {
-        return $this->hotel; 
+        //return $this->hotel; 
         return $this->roomId;
     }
 

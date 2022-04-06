@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Room {{room}} {% endblock %}
+{% block content %}
+<header>
+    <div class="p-4 p-md-5 mb-4 text-white rounded banner-image"
+        style="background-image: url('{{ asset('images/background-hotel.jpg') }}');">
+        <div class="col-md-6 px-0">
+            <h1 class="display-4 fst-italic text-white">{{room}}</h1>
+            <p class="lead my-3">Our hotels are among the best in the world, just choose one and discover the pleasure
+                of luxury</p>
+        </div>
+    </div>
+</header>
+<section>
+    {{ form_start(form) }}
+    <div class="container">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="bookingModalLabel">Good choice !</h5>
+                </div>
+                <div id="showAvailable"></div>
+                <div class="modal-body">
+                    {{ form_row(form.checkin) }}
+                    {{ form_row(form.checkout) }}
+                    {{ form_row(form.getHotelId, { 'attr' : { 'class' : 'hide' }})}}
+                    {{ form_row(form.roomId, { 'attr' : { 'class' : 'hide' }}) }}
+                </div>
+                <div class="modal-footer">
+                    <div class="mb-3">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                    <div class="mb-3">
+                        <button href="#" id="available" class="btn btn-success">Check if I'm free !</button>
+                    </div>
+                    {{ form_row(form.submit, { 'id' : 'btnBooking'}) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+</section>
+{% endblock %}
+{% block javascripts %}
+<script></script>
+{{ encore_entry_script_tags('booking') }}
+
+{% endblock %}

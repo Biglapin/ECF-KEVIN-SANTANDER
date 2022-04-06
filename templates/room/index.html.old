@@ -16,6 +16,7 @@
         </div>
     </div>
 </header>
+
 <section>
     <div class=" py-5 bg-light">
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -24,9 +25,9 @@
                 <div class="card" style="width: 18rem;">
                     <img  src="{{ vich_uploader_asset(room, 'imageFile') }}" class="card-img-top" alt="...">
                     <div class="card-body">
-                        <h5 class="card-title">{{ room.title }}</h5>
-                        <p class="card-text">{{ room.description }}</p>
-                            <a href="  {{ path('show_room', { 'slug': room.slug })}} " class="btn button-choose">Book</a>
+                        <h5 class="card-title"></h5>
+                        <p class="card-text"></p>
+                            <a href="  {# {{ path('show_room', { 'slug': room.slug })}} #} " class="btn button-choose">Book</a>
                     </div>
                 </div>
             </div>

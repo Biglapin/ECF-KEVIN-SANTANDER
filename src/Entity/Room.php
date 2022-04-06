@@ -135,10 +135,6 @@ class Room
         }
     }
 
-
-
-
-
     public function getSecondImage(): ?string
     {
         return $this->secondImage;

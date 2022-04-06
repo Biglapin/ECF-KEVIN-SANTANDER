@@ -176,3 +176,7 @@ h1, h2, h3, h4 {
 .section-icon-contact li img {
     margin: 0rem 1rem 0.4rem 0rem;
 }
+
+.hide {
+    display: none;
+}

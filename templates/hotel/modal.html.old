@@ -1,21 +1,36 @@
-<!-- Modal -->
-<div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="bookingModalLabel">Good choice !</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                {% if form is not defined %}
-                {{ form(form) }}
-                {% endif %}
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save the room</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- End Modal -->
+                    <!-- Modal -->
+                    {% set form = formObject.createView %}
+                    {{ form_start(form) }}
+
+                    <div class="modal fade" id="bookingModal" tabindex="-1" aria-labelledby="bookingModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="bookingModalLabel">Good choice !</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close">
+                                    </button>
+                                </div>
+                                <div id="showAvailable"></div>
+                                <div class="modal-body">
+                                    {{ form_row(form.getHotelId, {'attr': {'class': 'hide'}}) }}
+                                    {{ form_row(form.roomId) }}
+                                    {{ form_row(form.checkin) }}
+                                    {{ form_row(form.checkout) }}
+                                </div>
+                                <div class="modal-footer">
+                                <div class="mb-3">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                </div>
+                                <div class="mb-3">
+                                    <button href="#" id="available" class="btn btn-success">Check if I'm free !</button>
+                                </div>
+                                    {{ form_row(form.submit, { 'id' : 'btnBooking'}) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                    <!-- End Modal -->

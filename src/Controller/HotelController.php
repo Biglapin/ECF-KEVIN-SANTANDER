@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Hotel;
 use App\Entity\Reservation;
 use App\Form\BookingType;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,9 +15,7 @@ use Symfony\Component\Security\Core\Security;
 class HotelController extends AbstractController
 {
     public function __construct(private EntityManagerInterface $entityManager, private Security $security)
-    {
-    }
-
+    {}
 
     #[Route('/hotel', name: 'hotels')]
     public function index(): Response
@@ -40,18 +37,20 @@ class HotelController extends AbstractController
         if(!$hotel) {
             return $this->redirectToRoute('hotels');
         } 
-        //get all rooms and display them in the twig template
-        $rooms = $hotel->getRooms();
+         //get all rooms and display them in the twig template
+        $rooms = $hotel->getRooms(); 
         //Booking form
         $booking = new Reservation();
         $user = $this->security->getUser();
         $form = $this->createForm(BookingType::class, $booking)->handleRequest($request);
+
+
         
-        if($form->isSubmitted() && $form->isValid()) {
+/*       if($form->isSubmitted() && $form->isValid()) {
 
         $availableData = $this->entityManager->getRepository(Reservation::class)
             ->findAvailableRooms($booking->getCheckin(), $booking->getCheckout(), $booking->getRoomId());
-       
+    
             if (!$user) {
                 return $this->redirectToRoute('app_login');
             }
@@ -64,20 +63,20 @@ class HotelController extends AbstractController
             $this->entityManager->persist($user);
             $this->entityManager->persist($booking);
     
-            $this->entityManager->flush();
+            $this->entityManager->flush(); */
 
-
+/* 
         $this->addFlash('success', 'You room has been booked!');
 
             return $this->redirectToRoute('account');
         } else {
 
-        }
+        }  */
 
         return $this->render('hotel/showhotel.html.twig', [
             'hotel' => $hotel,
             'rooms' => $rooms,
-            'formObject' => $form
+           /*  'formObject' => $form,  */ 
         ]);
     }
 } 
