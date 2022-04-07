@@ -48,8 +48,14 @@ class RoomController extends AbstractController
         }
 
         if($form->isSubmitted() && $form->isValid()) {
+
+            if (!$user) {
+                return $this->redirectToRoute('app_login');
+            }
+
             $booking->setCustomerId($user);
             $booking->setIsBooked(true);
+
 
             $this->entityManager->persist($user);
             $this->entityManager->persist($booking);
