@@ -22,7 +22,7 @@
                     <img  src="{{ vich_uploader_asset(hotel, 'imageFile') }}" class="card-img-top" alt="...">
                     <div class="card-body">
                         <h5 class="card-title">{{ hotel.hotelName }}</h5>
-                        <p class="card-text">{{ hotel.description }}</p>
+                        <p class="card-text overflow-auto">{{ hotel.description }}</p>
                         <div class="card-footer text-center">
                                 <a href=" {{ path('show_hotel', { 'slug': hotel.slug})}} "><button class="btn button-choose">Check this hotel</button></a>
                         </div>
