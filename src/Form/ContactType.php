@@ -2,7 +2,6 @@
 
 namespace App\Form;
 
-use App\Entity\Contact;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -12,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
+use Gregwar\CaptchaBundle\Type\CaptchaType;
 
 class ContactType extends AbstractType
 {
@@ -20,13 +20,24 @@ class ContactType extends AbstractType
         $builder
             ->add('email', EmailType::class, [
                 'label' => 'Email',
-                /* 'constraints' => new Length(60, 2) */
+                'constraints' => new Length([
+                    'min' => 5,
+                    'max' => 60
+                ])
             ])
             ->add('lastname', TextType::class,[
               'label' => 'Lastname',
+              'constraints' => new Length([
+                'min'=> 2,
+                'max' => 30
+              ])
             ])
             ->add('firstname', TextType::class,[
               'label' => 'Firstname',
+              'constraints' => new Length([
+                'min'=> 2,
+                'max' => 30
+              ])
             ])
             ->add('subject', ChoiceType::class,[
               'label' => 'Subject',
@@ -39,10 +50,17 @@ class ContactType extends AbstractType
             ])
             ->add('message', TextareaType::class,[
               'label' => 'Message',
+              'constraints' => new Length([
+                'min'=> 2,
+                'max' => 500
+                ])
             ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Submit'
             ])
+            ->add('captcha', CaptchaType::class, [
+                'attr' => ['placeholder' => 'Please enter the letters displayed below'],
+          ]);
         ;
     }
 
