@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Cascade;
 
 #[ORM\Entity(repositoryClass: HotelRepository::class)]
 #[Vich\Uploadable]
@@ -37,10 +38,11 @@ class Hotel
     #[ORM\OneToMany(mappedBy: 'hotelId', targetEntity: User::class)]
     private $users;
 
+    #[ORM\JoinColumn('hotelId_id  ', referencedColumnName: 'hotelId_id', onDelete: 'CASCADE')]
     #[ORM\OneToMany(mappedBy: 'hotelId', targetEntity: Room::class)]
     private $rooms;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $Image;
 
     #[ORM\Column(type: 'string', length: 255)]
@@ -189,7 +191,7 @@ class Hotel
         return $this->Image;
     }
 
-    public function setImage(string $Image): self
+    public function setImage(?string $Image): self
     {
         $this->Image = $Image;
 

@@ -31,7 +31,7 @@ class Room
     #[ORM\Column(type: 'string', length: 255)]
     private $description;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255,  nullable: true)]
     private $image;
     
     #[Vich\UploadableField(mapping: 'rooms_images' ,fileNameProperty: 'image')]
@@ -110,7 +110,7 @@ class Room
         return $this->image;
     }
 
-    public function setImage(string $image): self
+    public function setImage(?string $image): self
     {
         $this->image = $image;
 
@@ -140,7 +140,7 @@ class Room
         return $this->secondImage;
     }
 
-    public function setSecondImage(string $secondImage): self
+    public function setSecondImage(?string $secondImage): self
     {
         $this->secondImage = $secondImage;
 
