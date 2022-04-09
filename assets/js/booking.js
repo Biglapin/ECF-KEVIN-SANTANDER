@@ -28,21 +28,25 @@ btnCheckAvailable.addEventListener('click', function (e) {
   let url = '/fetchroom';
   url = url + '?roomid=' + room + '&checkin=' + dateCheckin + '&checkout=' + dateCheckout;
 
-  // fetch room and check available 
-  fetch(url).then((response) =>
-    response.json().then((data) => {
-      if (data == '400') {
-        document.querySelector("#showAvailable").innerHTML = '<div class="alert alert-warning" role="alert">Oh no ! Not available ! </div>';
-        let btnBooking = document.getElementById('btnBooking').hidden = true;
+  if(inputCheckin.value == '' || inputCheckout.value == '') {
+    alert('Please fill in the checkin and checkout date');  //check if the checkin and checkout date is empty
+  } else {
+    // fetch room and check available 
+    fetch(url).then((response) =>
+      response.json().then((data) => {
+        if (data == '400') {
+          document.querySelector("#showAvailable").innerHTML = '<div class="alert alert-warning" role="alert">Oh no ! Not available ! </div>';
+          let btnBooking = document.getElementById('btnBooking').hidden = true;
 
-      }
-      if (data == '200') {
-        let btnBooking = document.getElementById('btnBooking').hidden = false;
-        let btnCheckAvailable = document.getElementById('available').hidden = true;
-        document.querySelector("#showAvailable").innerHTML = '<div class="alert alert-success text-center" role="alert">Yeah ! I\'m Free !' + '</div>';
-      }
-    }).catch((error) => {
-      console.log(error);
-    })
-  );
-});
+        }
+        if (data == '200') {
+          let btnBooking = document.getElementById('btnBooking').hidden = false;
+          let btnCheckAvailable = document.getElementById('available').hidden = true;
+          document.querySelector("#showAvailable").innerHTML = '<div class="alert alert-success text-center" role="alert">Yeah ! I\'m Free !' + '</div>';
+        }
+      }).catch((error) => {
+        console.log(error);
+      })
+    );
+  } //end of else
+}); 
