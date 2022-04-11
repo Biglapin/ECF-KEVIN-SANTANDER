@@ -47,4 +47,4 @@ To run this project, you will need to add the following environment variables to
 `DATABASE_URL="mysql://root:@127.0.0.1:3306/ecfhotel"`
 
 
-
+For security reasons, the Mailjet API accesses are not given here. This works only on the online part 
