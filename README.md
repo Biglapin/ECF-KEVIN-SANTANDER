@@ -21,7 +21,8 @@ Install my ECF project in local
   git clone https://github.com/Biglapin/ECF-KEVIN-SANTANDER.git
   cd ECF-KEVIN-SANTANDER/
 
-  #Verify if you have the .env in your folder.
+  #You must create an .env file with this : DATABASE_URL="mysql://root:@127.0.0.1:3306/ecfhotel"
+
   composer install
   php bin/console doctrine:database:create  
   php bin/console make:migration
