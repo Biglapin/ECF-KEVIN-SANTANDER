@@ -21,11 +21,13 @@ Install my ECF project in local
   git clone https://github.com/Biglapin/ECF-KEVIN-SANTANDER.git
   cd ECF-KEVIN-SANTANDER/
 
-  #You must create an .env file with this : DATABASE_URL="mysql://root:@127.0.0.1:3306/ecfhotel"
+  #Before continuing the next step, check that you have an .env file with this in it: 
+  #APP_SECRET=""
+  #DATABASE_URL="mysql://root:@127.0.0.1:3306/ecfhotel"
+  #MAILER_DSN=mailjet+smtp://ACCESS_KEY:SECRET_KEY@default
 
   composer install
   php bin/console doctrine:database:create  
-  php bin/console make:migration
   php bin/console doctrine:migrations:migrate
   composer require symfony/webpack-encore-bundle
   npm install
